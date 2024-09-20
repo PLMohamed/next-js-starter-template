@@ -1,15 +1,13 @@
 import { cspHeader } from './Csp.mjs';
+import createNextIntlPlugin from "next-intl/plugin";
 
 const withNextIntl = createNextIntlPlugin();
 
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    poweredByHeader: false,
-    experimental:{
-      ppr: true
-    },
-    async headers() {
+  poweredByHeader: false,
+  async headers() {
     return [
       {
         source: "/:path*",

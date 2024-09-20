@@ -59,7 +59,7 @@ async function setupLocalPostgres() {
     try {
         await execAsync('docker --version');
         console.log('Docker is installed.\n');
-    } catch (_error) {
+    } catch {
         console.error(
             'Docker is not installed. Please install Docker and try again.'
         );
@@ -129,7 +129,7 @@ async function runningDockerContainer() {
     try {
         await execAsync('docker compose up -d');
         console.log('Docker container started successfully.');
-    } catch (_error) {
+    } catch {
         console.error(
             'Failed to start Docker container. Please check your Docker installation and try again.'
         );

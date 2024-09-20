@@ -12,6 +12,7 @@
         "varsIgnorePattern": "^_"
       }
     ],
-    "no-empty-character-class": "error"
+    "no-empty-character-class": "error",
+    "@typescript-eslint/no-explicit-any": "off"
   }
 }
