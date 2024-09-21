@@ -1,3 +1,4 @@
+import { RTL_LOCALE } from "@/constants/locale";
 import { PageProps } from "@/types/data/page";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
@@ -15,7 +16,7 @@ export default async function RootLayout({ children, params: { locale } }: Reado
         >
             <body
                 className={`overflow-x-hidden scroll-smooth text-neutral-900`}
-                dir={locale === "ar" ? "rtl" : "ltr"}
+                dir={RTL_LOCALE.includes(locale) ? "rtl" : "ltr"}
             >
                 <NextIntlClientProvider messages={dictionary}>
                     {children}

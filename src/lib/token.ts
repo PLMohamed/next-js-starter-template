@@ -2,6 +2,8 @@ import "server-only";
 import { jwtVerify, type JWTPayload, SignJWT, type JWTHeaderParameters } from "jose";
 import { cookies } from "next/headers";
 import { UserTokenPayload } from "@/types/data/user";
+import { USER_TOKEN_TYPE } from "@/constants/token";
+import { redis } from "./redis";
 
 export function getJwtSecretKey(): Uint8Array {
     const secret = process.env.AUTH_SECRET;
@@ -35,26 +37,37 @@ export async function generateJwtToken(payload: JWTPayload,
 
 export async function getSessionToken() {
     try {
-        const token = cookies().get("token")?.value;
+        const token = cookies().get("access")?.value;
 
         if (!token) return null;
 
-        return await verifyJwtToken<UserTokenPayload>(token);
+        const payload = await verifyJwtToken<UserTokenPayload>(token);
+
+        if (!USER_TOKEN_TYPE.includes(payload.type)) return null;
+
+        const storedToken = await redis.get(`token:${payload.id}:${payload.type}`);
+
+        if (storedToken !== token) return null;
+
+        return payload
     } catch {
         return null;
     }
 }
 
-export async function setSessionToken(payload: Omit<UserTokenPayload, "expires">) {
+export async function setSessionToken(payload: UserTokenPayload) {
     const expires = new Date();
     expires.setHours(expires.getHours() + 2);
 
     const token = await generateJwtToken({
-        expires: expires.toISOString(),
         ...payload,
     });
 
-    cookies().set('session', token, {
+    await redis.set(`token:${payload.id}:${payload.type}`, token, {
+        ex: 7200,
+    });
+
+    cookies().set(payload.type, token, {
         expires,
         httpOnly: true,
         secure: true,
