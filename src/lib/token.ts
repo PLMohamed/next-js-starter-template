@@ -37,7 +37,7 @@ export async function generateJwtToken(payload: JWTPayload,
 
 export async function getSessionToken() {
     try {
-        const token = cookies().get("access")?.value;
+        const { value: token } = cookies().get("access") || {};
 
         if (!token) return null;
 
@@ -55,22 +55,17 @@ export async function getSessionToken() {
     }
 }
 
-export async function setSessionToken(payload: UserTokenPayload) {
+export async function setSessionToken(payload: UserTokenPayload, expiresHours: number) {
     const expires = new Date();
-    expires.setHours(expires.getHours() + 2);
+    expires.setHours(expires.getHours() + expiresHours);
 
     const token = await generateJwtToken({
         ...payload,
     });
 
     await redis.set(`token:${payload.id}:${payload.type}`, token, {
-        ex: 7200,
+        ex: expiresHours * 3600,
     });
 
-    cookies().set(payload.type, token, {
-        expires,
-        httpOnly: true,
-        secure: true,
-        sameSite: 'lax',
-    });
+    return token;
 }

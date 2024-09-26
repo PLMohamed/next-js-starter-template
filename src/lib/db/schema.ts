@@ -7,6 +7,7 @@ import {
     uuid,
 } from 'drizzle-orm/pg-core';
 
+
 export const users = pgTable('users', {
     id: uuid('id').primaryKey(),
     name: varchar('name', { length: 100 }),
@@ -19,8 +20,8 @@ export const users = pgTable('users', {
 });
 
 export const userSessions = pgTable('user_sessions', {
-    id: uuid('id').primaryKey(),
-    userId: uuid('user_id').notNull().references(() => users.id),
+    sessionToken: varchar('session_token', { length: 255 }).notNull().unique().primaryKey(),
+    userId: uuid('user_id').notNull().references(() => users.id).primaryKey(),
     device: varchar('device', { length: 100 }),
     lastActive: timestamp('last_active').notNull().defaultNow(),
     createdAt: timestamp('created_at').notNull().defaultNow(),

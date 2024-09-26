@@ -1,1 +1,1 @@
-export const USER_TOKEN_TYPE = ["access", "refresh"] 
+export const USER_TOKEN_TYPE = ["access"] 
