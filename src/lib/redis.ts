@@ -9,7 +9,7 @@ export const redis = new Redis({
     token: process.env.REDIS_TOKEN,
 });
 
-export async function createRateLimitKey(key: string, limit: number, duration: Duration) {
+export async function createRateLimit(key: string, limit: number, duration: Duration) {
     const rateLimiter = new Ratelimit({
         redis,
         limiter: Ratelimit.fixedWindow(limit, duration),

@@ -1,4 +1,4 @@
-import { relations } from 'drizzle-orm';
+import { sql } from 'drizzle-orm';
 import {
     pgTable,
     varchar,
@@ -15,32 +15,10 @@ export const users = pgTable('users', {
     passwordHash: text('password_hash').notNull(),
     role: varchar('role', { length: 20 }).notNull().default('member'),
     createdAt: timestamp('created_at').notNull().defaultNow(),
-    updatedAt: timestamp('updated_at').notNull().defaultNow(),
+    updatedAt: timestamp('updated_at').notNull().defaultNow().$onUpdate(() => sql`now()`),
     deletedAt: timestamp('deleted_at'),
 });
 
-export const userSessions = pgTable('user_sessions', {
-    sessionToken: varchar('session_token', { length: 255 }).notNull().unique().primaryKey(),
-    userId: uuid('user_id').notNull().references(() => users.id).primaryKey(),
-    device: varchar('device', { length: 100 }),
-    lastActive: timestamp('last_active').notNull().defaultNow(),
-    createdAt: timestamp('created_at').notNull().defaultNow(),
-});
-
-export const userRelations = relations(
-    users, ({ many }) => ({
-        sessions: many(userSessions),
-    }),
-);
-
-export const userSessionRelations = relations(
-    userSessions, ({ one }) => ({
-        user: one(users, {
-            fields: [userSessions.userId],
-            references: [users.id],
-        }),
-    }),
-)
 
 
 export type User = typeof users.$inferSelect;
