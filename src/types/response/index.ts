@@ -3,8 +3,8 @@ export interface ListResponse<T> {
     page: number;
 }
 
-export interface APIResponse {
+export type APIResponse<T = Record<string, any>> = {
     message: string;
     messageTranslationCode: string;
     [key: string]: any;
-}
+} & T;

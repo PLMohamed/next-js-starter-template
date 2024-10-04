@@ -10,8 +10,8 @@
     "db:migrate": "npx tsx src/lib/db/migrate.ts",
     "db:setup": "npx tsx src/lib/db/setup.ts",
     "lint": "next lint",
-    "test": "jest",
-    "test:watch": "jest --watch"
+    "test": "jest --runInBand",
+    "test:watch": "jest --watch --runInBand"
   },
   "dependencies": {
     "@upstash/ratelimit": "^2.0.3",
@@ -28,6 +28,7 @@
     "pg": "^8.13.0",
     "react": "^18",
     "react-dom": "^18",
+    "react-hot-toast": "^2.4.1",
     "react-query": "^3.39.3",
     "server-only": "^0.0.1",
     "sharp": "^0.33.5",

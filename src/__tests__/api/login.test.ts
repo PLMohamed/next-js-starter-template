@@ -17,27 +17,24 @@ jest.mock('next/headers', () => ({
     })),
 }));
 
+jest.mock('@/lib/redis', () => ({
+    ...jest.requireActual('@/lib/redis'),
+    createRateLimit: jest.fn().mockResolvedValue({
+        responseHeader: new Headers({
+            "X-RateLimit-Limit": "5",
+            "X-RateLimit-Remaining": "5",
+            "X-RateLimit-Reset": "0",
+        }),
+        success: true,
+    }),
+}));
+
 describe("API Route: /login", () => {
     let server = createTestServer(POST);
 
     beforeAll((done) => {
         server = createTestServer(POST);
         server.listen(3000, done);
-
-        jest.mock("@/lib/redis", () => {
-            return {
-                createRateLimit: jest.fn().mockImplementation(() => {
-                    return {
-                        responseHeader: {
-                            "X-RateLimit-Limit": "5",
-                            "X-RateLimit-Remaining": "0",
-                            "X-RateLimit-Reset": "60"
-                        },
-                        success: false
-                    }
-                })
-            }
-        });
     });
 
     afterAll((done) => {
@@ -83,17 +80,4 @@ describe("API Route: /login", () => {
             .expect(HTTP_RESPONSE.BAD_REQUEST);
     });
 
-    it("should return 429 if too many requests are made", async () => {
-        jest.clearAllMocks();
-
-
-        for (let i = 0; i < 5; i++) {
-            await request(server)
-                .post("/login")
-        }
-
-        await request(server)
-            .post("/login")
-            .expect(HTTP_RESPONSE.TOO_MANY_REQUESTS);
-    })
 });

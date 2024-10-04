@@ -1,4 +1,5 @@
 export const API_VERSION: string = process.env.NEXT_PUBLIC_API_VERSION || "v1"
+export const API_URL: string = `/api/${API_VERSION}/` as const;
 
 export const HTTP_RESPONSE = {
     OK: 200,
