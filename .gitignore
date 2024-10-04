@@ -46,3 +46,6 @@ migrations/
 docker-compose*.yml
 
 package-lock.json
+
+# vscode
+.vscode

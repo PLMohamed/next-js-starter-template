@@ -1,5 +1,7 @@
 import { logger } from "@/logger";
+import { APIResponse } from "@/types/response";
 import { getTranslations } from "next-intl/server";
+import { NextResponse } from "next/server";
 
 interface FetchAPIProps {
     endpoint: string;
@@ -80,4 +82,16 @@ export default async function FetchAPI<T>({
             pageCount: 0,
         };
     }
+}
+
+export function createNextResponse(body: APIResponse,
+    init?: ResponseInit
+): NextResponse {
+    return new NextResponse(JSON.stringify(body), {
+        ...init,
+        headers: {
+            "Content-Type": "application/json",
+            ...init?.headers,
+        },
+    });
 }

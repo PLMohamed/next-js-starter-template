@@ -3,3 +3,7 @@ export interface PageProps {
         locale: string;
     };
 }
+
+export interface RouteParams {
+    [key: string]: string;
+}

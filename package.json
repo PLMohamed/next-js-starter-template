@@ -9,7 +9,9 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "npx tsx src/lib/db/migrate.ts",
     "db:setup": "npx tsx src/lib/db/setup.ts",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "dependencies": {
     "@upstash/ratelimit": "^2.0.3",
@@ -35,17 +37,22 @@
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
+    "@types/jest": "^29.5.13",
     "@types/node": "^20",
     "@types/pg": "^8.11.10",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/supertest": "^6.0.2",
     "drizzle-kit": "^0.24.2",
     "eslint": "^8",
     "eslint-config-next": "14.2.13",
+    "jest": "^29.7.0",
     "postcss": "^8",
     "prettier": "^3.3.3",
     "prettier-plugin-tailwindcss": "^0.6.6",
+    "supertest": "^7.0.0",
     "tailwindcss": "^3.4.1",
+    "ts-jest": "^29.2.5",
     "typescript": "^5"
   }
 }
