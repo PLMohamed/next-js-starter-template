@@ -1,0 +1,51 @@
+version: "3.8"
+
+services:
+  # Node.js service
+  node:
+    image: node:current-alpine3.22
+    container_name: nextjs_node
+    working_dir: /app
+    volumes:
+      - .:/app
+    command: sh -c "npm install && npm run dev"
+    ports:
+      - "3000:3000"
+
+  # PostgreSQL service
+  postgres:
+    image: postgres:13.21-alpine3.22
+    container_name: nextjs_postgres
+    environment:
+      POSTGRES_USER: ${DB_URL_USERNAME}
+      POSTGRES_PASSWORD: ${DB_URL_PASSWORD}
+      POSTGRES_DB: ${DB_URL_DATABASE}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  # Redis service
+  redis:
+    image: redis:alpine3.21
+    container_name: nextjs_redis
+    ports:
+      - "6379:6379"
+
+  # Serverless redis service
+  serverless-redis:
+    image: hiett/serverless-redis-http:latest
+    environment:
+      SRH_MODE: env
+      SRH_TOKEN: ${REDIS_TOKEN}
+      SRH_CONNECTION_STRING: "redis://redis:6379"
+    ports:
+      - "8079:80"
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+  serverless_redis_data:
+    driver: local

@@ -4,7 +4,6 @@ import applySetCookie from "./middlewares/cookie";
 import localeMiddleware from "./middlewares/locale";
 import allowMiddleware from "./middlewares/allow";
 
-
 export async function middleware(request: NextRequest): Promise<NextResponse> {
   const { pathname } = request.nextUrl;
   const isApi: boolean = pathname.startsWith("/api");
@@ -16,10 +15,7 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
 
   const allowResponse = await allowMiddleware(request);
 
-  if (allowResponse)
-    return allowResponse;
-
-
+  if (allowResponse) return allowResponse;
 
   return response;
 }

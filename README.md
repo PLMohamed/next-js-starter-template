@@ -1,7 +1,9 @@
 # Next Js Starter template
+
 this repo is my starter to full stack applications with all those [libraries](#libraries)
 
 ## Table of content
+
 - [Usage](#usage)
 - [Prerequisites](#prerequisites)
 - [Features](#features)
@@ -35,9 +37,10 @@ this project support both local (Docker) and remote database to satisfy your nee
 - [Docker](https://www.docker.com) (Optional if you want to use local db and redis)
 
 ## Features
+
 - <b>API for Authentication</b>: Built-in endpoints for user signup and login.
 - <b>Token Management</b>: Secure token storage using Redis, with middleware for token verification .
-- <b>Internationalization (i18n)</b>: Easily localize your application for different languages. 
+- <b>Internationalization (i18n)</b>: Easily localize your application for different languages.
 - <b>ORM Integration</b>: The use of [Drizzle-ORM](https://orm.drizzle.team) for efficient database management with a simple and intuitive API.
 - <b>Server less redis</b>: Easy redis caching strategies to improve application performance and reduce database load.
 - <b>VSCode Debugger Configuration</b>: Preconfigured settings for debugging your Next.js application in Visual Studio Code.
@@ -49,9 +52,8 @@ this project support both local (Docker) and remote database to satisfy your nee
 - <b>Testing</b>: Preconfigured api testing to ensure code reliability.
 - <b>Toast</b>: Integrated toast notifications for better user experience on actions and events within the application.
 
-
-
 ## Libraries
+
 This project utilize diffrent libraries such as :
 
 - Database : [PostgreSQL](https://www.postgresql.org)

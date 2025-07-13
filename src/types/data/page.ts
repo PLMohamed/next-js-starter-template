@@ -1,9 +1,9 @@
 export interface PageProps {
-    params: {
-        locale: string;
-    };
+  params: Promise<{
+    locale: string;
+  }>;
 }
 
 export interface RouteParams {
-    [key: string]: string;
+  [key: string]: string;
 }

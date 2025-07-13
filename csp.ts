@@ -1,5 +1,4 @@
-/** @type {string} */
-export const cspHeader = `
+export const CSP_HEADER: string = `
     default-src 'self';
     script-src 'self' 'unsafe-eval' 'unsafe-inline';
     style-src 'self' 'unsafe-inline';

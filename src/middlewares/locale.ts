@@ -1,13 +1,12 @@
-import { NextRequest } from "next/server";
+import { routing } from "@/lib/i18n";
 import createIntlMiddleware from "next-intl/middleware";
-import { ALLOWED_LOCALES, DEFAULT_LOCALE, LOCALE_PREFIX } from "@/constants/locale";
+import { NextRequest } from "next/server";
 
 export default async function localeMiddleware(request: NextRequest) {
-
   const handleI18nRouting = createIntlMiddleware({
-    locales: ALLOWED_LOCALES,
-    defaultLocale: DEFAULT_LOCALE,
-    localePrefix: LOCALE_PREFIX,
+    locales: routing.locales,
+    defaultLocale: routing.defaultLocale,
+    localePrefix: routing.localePrefix,
   });
 
   const response = handleI18nRouting(request);

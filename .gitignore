@@ -42,8 +42,6 @@ migrations/
 # logs
 *.log
 
-# docker
-docker-compose*.yml
 
 package-lock.json
 

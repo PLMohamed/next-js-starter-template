@@ -1,11 +1,10 @@
-import { cspHeader } from './Csp.mjs';
+import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
+import { CSP_HEADER } from "./csp";
 
-const withNextIntl = createNextIntlPlugin();
+const withNextIntl = createNextIntlPlugin("./src/lib/i18n/request.ts");
 
-
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+const nextConfig: NextConfig = {
   poweredByHeader: false,
   async headers() {
     return [
@@ -34,7 +33,7 @@ const nextConfig = {
           },
           {
             key: "Content-Security-Policy",
-            value: cspHeader.replace(/\n/g, ""),
+            value: CSP_HEADER.replace(/\n/g, ""),
           },
         ],
       },
