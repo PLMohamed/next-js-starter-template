@@ -137,7 +137,7 @@ export async function getSessionToken(): Promise<UserTokenPayload | null> {
       return null;
     }
 
-    const storedToken = await redis.get(`token:${payload.id}:${payload.type}`);
+    const storedToken = await redis.get(`token:${payload.uuid}:${payload.type}`);
     if (storedToken !== token) {
       return null;
     }
@@ -189,7 +189,7 @@ export async function setSessionToken(
   try {
     const token = await generateJwtToken(payload, `${expiresHours}h`);
 
-    await redis.set(`token:${payload.id}:${payload.type}`, token, {
+    await redis.set(`token:${payload.uuid}:${payload.type}`, token, {
       ex: expiresHours * 3600, // Convert hours to seconds
     });
 

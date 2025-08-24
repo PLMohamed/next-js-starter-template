@@ -31,7 +31,8 @@ export const pool = new Pool(poolConfig);
 /**
  * Drizzle ORM database instance
  */
-export const db = drizzle(pool, {
+export const db = drizzle({
+  client: pool,
   schema,
   logger: process.env.NODE_ENV === "development" ? true : false,
 });

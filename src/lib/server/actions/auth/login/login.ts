@@ -35,7 +35,7 @@ const baseActionLogin = async (values: LoginRequest) => {
   const [token, cookieStore] = await Promise.all([
     setSessionToken(
       {
-        id: user.id,
+        uuid: user.id,
         type: "access",
         role: "user",
       },
