@@ -4,7 +4,7 @@ import applySetCookie from "./middlewares/cookie";
 import localeMiddleware from "./middlewares/locale";
 import allowMiddleware from "./middlewares/allow";
 
-export async function middleware(request: NextRequest): Promise<NextResponse> {
+export async function proxy(request: NextRequest): Promise<NextResponse> {
   const { pathname } = request.nextUrl;
   const isApi: boolean = pathname.startsWith("/api");
 

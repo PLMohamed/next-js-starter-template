@@ -1,8 +1,8 @@
-import { InferSelectModel, and, eq, isNull, type SQL, type SelectedFields } from "drizzle-orm";
+import { logger } from "@/logger";
+import { InferSelectModel, and, eq, isNull, type SelectedFields } from "drizzle-orm";
+import { cache } from "react";
 import { db } from "..";
 import { USERS_SCHEMA } from "../schema";
-import { logger } from "@/logger";
-import { cache } from "react";
 
 type UserTable = typeof USERS_SCHEMA;
 type UserColumns = UserTable["_"]["columns"][keyof UserTable["_"]["columns"]];

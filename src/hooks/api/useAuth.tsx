@@ -6,7 +6,7 @@ import { LoginRequest, SignupRequest } from "@/types/request/Auth";
 import { APIResponse } from "@/types/response";
 import { handleAction } from "@/utils/actions";
 import { useMutation, UseMutationOptions, useQueryClient } from "@tanstack/react-query";
-import { toast } from "react-hot-toast";
+import { toast } from "sonner";
 
 export function useLogin(options?: UseMutationOptions<void, APIResponse, LoginRequest>) {
   const queryClient = useQueryClient();

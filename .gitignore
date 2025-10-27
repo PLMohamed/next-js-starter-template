@@ -47,3 +47,6 @@ package-lock.json
 
 # vscode
 .vscode
+
+# next-intl
+en.d.json.ts
